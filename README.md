@@ -90,14 +90,24 @@ node_modules
 MONGODB_URI=mongodb://127.0.0.1:27017/techquiz
 
 ```
+8. Check app is successfully connecting to mongoDB:
 
-8. In 'root' directory, open cypress:
+```zsh
+npm run start
+```
+9. Seed database:
+
+```zsh
+npm run seed
+```
+
+10. In 'root' directory, open cypress:
 
 ```zsh
 npx cypress open
 ```
 
-9. In 'root' package.json, add cypress commands to scripts:
+11. In 'root' package.json, add cypress commands to scripts:
 
 {
 "scripts": {
@@ -105,18 +115,18 @@ npx cypress open
 }
 }
 
-10. To invoke testing run the following command in 'server':
+12. To invoke testing run the following command in 'server':
 
 ```zsh
 npm run test
 ```
 
-11. In Cypress, navigate to component testing and confirm front-end framework and bundler:
+13. In Cypress, navigate to component testing and confirm front-end framework and bundler:
 
 front-end framework: React.js
 bundler: Vite
 
-12. Confirm cypress configuration files added to project:
+14. Confirm cypress configuration files added to project:
 
 'cypress.config.ts'
 'cypress/support/component.ts'
@@ -124,9 +134,11 @@ bundler: Vite
 'cypress/support/component-index.html'
 'cypress/fixtures/example.json'
 
-13. Start component testing in Chrome browser.
+15. Start component testing in Chrome browser:
 
-14. To build the application run the following command in 'root':
+16. Start end-to-end testing in Chrome browser:
+
+17. To build the application run the following command in 'root':
 
 ```zsh
 npm run render-build
