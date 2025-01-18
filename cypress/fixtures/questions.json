@@ -1,0 +1,92 @@
+[
+  {
+    "_id": 1,
+    "question": "Which of the following is a mutable data type in Python?",
+    "answers": [
+      { "text": "List", "isCorrect": true },
+      { "text": "Tuple", "isCorrect": false },
+      { "text": "String", "isCorrect": false },
+      { "text": "Integer", "isCorrect": false }
+    ]
+  },
+  {
+    "_id": 2,
+    "question": "What is the keyword used to define a function in Python?",
+    "answers": [
+      { "text": "def", "isCorrect": true },
+      { "text": "function", "isCorrect": false },
+      { "text": "func", "isCorrect": false },
+      { "text": "define", "isCorrect": false }
+    ]
+  },
+  {
+    "_id": 3,
+    "question": "Which of the following is used to create an empty set?",
+    "answers": [
+      { "text": "set()", "isCorrect": true },
+      { "text": "{}", "isCorrect": false },
+      { "text": "[]", "isCorrect": false },
+      { "text": "()", "isCorrect": false }
+    ]
+  },
+  {
+    "_id": 4,
+    "question": "What does the // operator do in Python?",
+    "answers": [
+      { "text": "Floor division", "isCorrect": true },
+      { "text": "Exponentiation", "isCorrect": false },
+      { "text": "Modulus", "isCorrect": false },
+      { "text": "Addition", "isCorrect": false }
+    ]
+  },
+  {
+    "_id": 5,
+    "question": "Which of the following is a Python built-in function?",
+    "answers": [
+      { "text": "print()", "isCorrect": true },
+      { "text": "echo()", "isCorrect": false },
+      { "text": "write()", "isCorrect": false },
+      { "text": "output()", "isCorrect": false }
+    ]
+  },
+  {
+    "_id": 6,
+    "question": "What is the output of len('Hello')?",
+    "answers": [
+      { "text": "5", "isCorrect": true },
+      { "text": "4", "isCorrect": false },
+      { "text": "6", "isCorrect": false },
+      { "text": "7", "isCorrect": false }
+    ]
+  },
+  {
+    "_id": 7,
+    "question": "Which of the following is used to handle exceptions in Python?",
+    "answers": [
+      { "text": "try-except", "isCorrect": true },
+      { "text": "catch-throw", "isCorrect": false },
+      { "text": "do-catch", "isCorrect": false },
+      { "text": "try-catch", "isCorrect": false }
+    ]
+  },
+  {
+    "_id": 8,
+    "question": "What is the output of 3 + 2 * 2?",
+    "answers": [
+      { "text": "7", "isCorrect": true },
+      { "text": "10", "isCorrect": false },
+      { "text": "8", "isCorrect": false },
+      { "text": "12", "isCorrect": false }
+    ]
+  },
+  {
+    "_id": 9,
+    "question": "Which of the following is a valid variable name in Python?",
+    "answers": [
+      { "text": "my_var", "isCorrect": true },
+      { "text": "my-var", "isCorrect": false },
+      { "text": "my var", "isCorrect": false },
+      { "text": "my.var", "isCorrect": false }
+    ]
+  }
+]
