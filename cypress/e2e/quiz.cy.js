@@ -1,56 +1,72 @@
 // end-to-end tests for tech quiz
-import React from 'react';
-import { mount } from 'cypress/react';
-import Quiz from '../../client/src/components/Quiz';
 
-describe('Quiz Component', () => {
+describe('Tech Quiz E2E Tests', () => {
+
   beforeEach(() => {
     cy.intercept('GET', '/api/questions/random', {
       fixture: 'questions.json'
     }).as('getQuestions');
   });
 
-  it('should start the quiz correctly', () => {
-    mount(<Quiz />);
-    cy.contains('Start Quiz').click();
-    cy.wait('@getQuestions');
-    cy.get('.spinner-border').should('not.exist');
-    cy.get('h2').should('exist');
+  it ('successfully loads', () => {
+    cy.visit('/');
   });
 
-  it('should display questions correctly', () => {
-    mount(<Quiz />);
-    cy.contains('Start Quiz').click();
-    cy.wait('@getQuestions');
-    cy.get('h2').should('contain.text', 'Question 1');
-    cy.get('.alert').should('have.length', 4);
+  it('visiting the url should display the start quiz button', () => {
+    cy.visit('/');
+    cy.contains('Start Quiz').should('be.visible');
   });
 
-  it('should display the quiz completion correctly', () => {
-    mount(<Quiz />);
+
+  it('should start the quiz and display the first question', () => {
+    cy.visit('/');
+    cy.contains('Start Quiz').click();
+    cy.get('div.card.p-4').should('be.visible');
+  });
+
+  it('should allow the user to answer a question and move to the next', () => {
+    cy.visit('/');
     cy.contains('Start Quiz').click();
     cy.wait('@getQuestions');
-    for (let i = 0; i < 10; i++) {
-      cy.get('button').contains('1', { timeout: 10000 }).should('exist').click();
-      cy.log(`Clicked button 1 for question ${i + 1}`);
-      cy.screenshot(`after-clicking-button-1-question-${i + 1}`);
+    cy.get('div.d-flex.align-items-center.mb-2').eq(0).within(() => {
+      cy.get('button.btn.btn-primary').click();
+    });
+    cy.get('div.card.p-4').should('be.visible');
+  });
+
+  it('should validate if the selected answer is correct or incorrect', () => {
+    cy.visit('/');
+    cy.contains('Start Quiz').click();
+    cy.wait('@getQuestions');
+    cy.get('div.d-flex.align-items-center.mb-2').eq(0).within(() => {
+      cy.get('button.btn.btn-primary').click();
+    });
+    cy.get('div.alert.alert-secondary').should('be.visible');
+  });  
+
+  it('should display the results after completing the quiz', () => {
+    cy.visit('/');
+    cy.contains('Start Quiz').click();
+    cy.wait('@getQuestions');
+    for (let i = 0; i < 9; i++) { 
+      cy.get('div.d-flex.align-items-center.mb-2').eq(0).within(() => {
+        cy.get('button.btn.btn-primary').click();
+      });
     }
-    cy.contains('Quiz Completed').should('exist');
-    cy.contains('Your score:').should('exist');
+    cy.get('div.card.p-4.text-center').within(() => {
+      cy.get('h2').should('contain', 'Quiz Completed');
+      cy.get('div.alert.alert-success').should('contain', `Your score: 9/9`);
+      cy.get('button.btn.btn-primary.d-inline-block.mx-auto').should('be.visible');
+    });
+  });
+
+  it('should seed the database', () => {
+    cy.exec('npm run seed').then(() => {
+      cy.request('/api/questions/random').then((response) => {
+        expect(response.status).to.eq(200);
+        expect(response.body).to.have.length.greaterThan(0);
+      });
+    });
   });
   
-  it('should update the score correctly', () => {
-    mount(<Quiz />);
-    cy.contains('Start Quiz').click();
-    cy.wait('@getQuestions');
-    cy.screenshot('before-clicking-buttons');
-    cy.get('button').contains('1').should('exist').click();
-    cy.get('button').contains('2').should('exist').click();
-    cy.get('button').contains('3').should('exist').click();
-    cy.get('button').contains('4').click();
-    cy.screenshot('after-clicking-buttons');
-    cy.contains('Quiz Completed').should('exist');
-    cy.contains('Your score:').should('exist');
-  });
-
-});
+});  

@@ -115,18 +115,18 @@ npx cypress open
 }
 }
 
-12. To invoke testing run the following command in 'server':
+12. In root, start your local development server:
 
 ```zsh
-npm run test
+npm run start:dev
 ```
 
-13. In Cypress, navigate to component testing and confirm front-end framework and bundler:
+14. In Cypress, navigate to component testing and confirm front-end framework and bundler:
 
 front-end framework: React.js
 bundler: Vite
 
-14. Confirm cypress configuration files added to project:
+15. Confirm cypress configuration files added to project:
 
 'cypress.config.ts'
 'cypress/support/component.ts'
@@ -134,11 +134,21 @@ bundler: Vite
 'cypress/support/component-index.html'
 'cypress/fixtures/example.json'
 
-15. Start component testing in Chrome browser:
+16. In cypress.config.ts, add baseUrl:
 
-16. Start end-to-end testing in Chrome browser:
+import { defineConfig } from 'cypress'
 
-17. To build the application run the following command in 'root':
+export default defineConfig({
+  e2e: {
+    baseUrl: 'http://127.0.0.1:3001/',
+  },
+})
+
+17. Start component testing in Chrome browser:
+
+18. Start end-to-end testing in Chrome browser:
+
+19. To build the application run the following command in 'root':
 
 ```zsh
 npm run render-build
