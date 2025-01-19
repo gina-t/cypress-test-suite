@@ -14,7 +14,7 @@ const Quiz = () => {
       const questions = await getQuestions();
 
       if (!questions) {
-        throw new Error('something went wrong!');
+        throw new Error('Database connection failed');
       }
 
       setQuestions(questions);
