@@ -164,19 +164,24 @@ Screenshots of app demonstrating functionality:
 
 ### screenshot-1
 
-![](./client/src/assets/screenshot-1.png)
+![start-quiz](../client/src/assets/screenshot-1.png)
 
 ### screenshot-2
 
-![](./client/src/assets/screenshot-2.png)
+![quiz-question](../client/src/assets/screenshot-2.png)
 
 ### screenshot-3
 
-![](./client/src/assets/screenshot-3.png)
+![quiz-completed](../client/src/assets/screenshot-3.png)
 
 ### screenshot-4
 
-![](./client/src/assets/screenshot-4.png)
+![cypress-component-tests](../client/src/assets/screenshot-4.png)
+
+### screenshot-5
+
+![cypress-e2e-tests](../client/src/assets/screenshot-5.png)
+
 
 ## License
 
