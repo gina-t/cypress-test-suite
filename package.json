@@ -14,7 +14,10 @@
     "build": "cd server && npm run build",
     "seed": "cd server && npm run seed",
     "render-build": "npm install && npm run build",
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "test:component": "cypress run --component --spec 'cypress/component/Quiz.cy.jsx'",
+    "test:e2e": "cypress run --e2e --spec 'cypress/e2e/quiz.cy.js'",
+    "test": "npm run test:component && npm run test:e2e"
       
   },
   "keywords": [],

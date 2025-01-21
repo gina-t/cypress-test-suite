@@ -1,7 +1,5 @@
 # cypress-test-suite
 
-Apply component and end-to-end testing with Cypress to an existing quiz app
-
 ## Table of Contents
 
 - [Description](#description)
@@ -14,7 +12,8 @@ Apply component and end-to-end testing with Cypress to an existing quiz app
 
 ## Description
 
-Refactor an existing google books RESTful API into a grahql API built with apollo server.
+Apply component and end-to-end testing with Cypress to an existing quiz app
+
 
 ## Installation
 
@@ -23,31 +22,38 @@ To get started with this project, implement the following steps:
 1. Clone the repo:
 
 ```zsh
-git clone
+git clone git@github.com:gina-t/cypress-test-suite.git
 
 ```
 
-2. In 'root' directory, install dependencies:
+2. In `root` directory, install dependencies:
 
 ```zsh
 npm install @types/react @vitejs/plugin-react concurrently cypress nodemon react react-dom react-router-dom typescript vitest wait-on --save-dev
 ```
 
-3. In 'server' folder, install dependencies and add nodemonConfig:
+3. In `server` directory, install dependencies:
 
 ```zsh
 npm install express mongoose
 npm install @types/express @types/node dotenv typescript --save-dev
+```
 
+4. Add the following nodemonConfig to package.json:
+
+```json
+{
 "nodemonConfig": {
   "watch": [
     "src"
   ],
   "ext": "ts,json,js",
-  "excec": "npx tsc && node dist/server.js"}
+  "excec": "npx tsc && node dist/server.js"
+  }
+}
 ```
 
-4. In 'client' folder, install dependencies:
+5. In `client` directory, install dependencies:
 
 ```zsh
 npm install bootstrap react react-dom react-router-dom
@@ -55,67 +61,78 @@ npm install bootstrap react react-dom react-router-dom
 npm install @types/react @types/react-dom @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitejs/plugin-react eslint eslint-plugin-react-hooks eslint-plugin-react-refresh typescript vite --save-dev
 ```
 
-5. Configure TypeScript:
+6. Configure TypeScript:
 
-- root/tsconfig.json conatins the base configuration with references:
+- `root/tsconfig.json` contains the base configuration with references:
 
+```json
+{
 "references": [
-{
-"path": "./server"
-},
-{
-"path": "./client"
-},
-{
-"path": "./cypress"
-}]
+{"path": "./server"},
+{"path": "./client"},
+{"path": "./cypress"}
+]
+}
+```
 
-- server/tsconfig.json extends the root and adds settings specific to the server-side including typeRoots:
+- `server/tsconfig.json` extends the root and adds settings specific to the server-side including typeRoots:
 
+```json
+{
 "typeRoots": ["./node_modules/@types", "./src/types"]
+}
+```
 
-- client/tsconfig.json contains client specific configuration and refernces:
+- `client/tsconfig.json` contains client specific configuration and references:
 
+```json
+{
 "jsx": "react-jsx"
 "references": [{ "path": "./tsconfig.node.json" }]
+}
+```
 
-6. In 'root' directory, create .gitignore file and add:
+7. In `root` directory, create `.gitignore` file and add:
 
+```plaintext
 .env
 node_modules
-
-7. In 'server' directory, create .env file and add:
-
-```javascript
-MONGODB_URI=mongodb://127.0.0.1:27017/techquiz
-
 ```
-8. Check app is successfully connecting to mongoDB:
+
+8. In `server` directory, create `.env file` and add:
+
+```plaintext
+MONGODB_URI=mongodb://127.0.0.1:27017/techquiz
+```
+
+9. Check app is successfully connecting to mongoDB:
 
 ```zsh
 npm run start
 ```
-9. Seed database:
+10. Seed the database:
 
 ```zsh
 npm run seed
 ```
 
-10. In 'root' directory, open cypress:
+11. In `root` directory, open cypress:
 
 ```zsh
 npx cypress open
 ```
 
-11. In 'root' package.json, add cypress commands to scripts:
+12. In `root` package.json, add cypress commands to scripts:
 
+```json
 {
-"scripts": {
-"cy:open": "cypress open"
+  "scripts": {
+    "cy:open": "cypress open"
+  } 
 }
-}
+```
 
-12. In root, start your local development server:
+13. In `root` directory, start your local development server:
 
 ```zsh
 npm run start:dev
@@ -134,24 +151,48 @@ bundler: Vite
 'cypress/support/component-index.html'
 'cypress/fixtures/example.json'
 
-16. In cypress.config.ts, add baseUrl:
+16. In cypress.config.ts, add baseUrl and specPattern:
 
-import { defineConfig } from 'cypress'
-
+```typescript
 export default defineConfig({
-  e2e: {
-    baseUrl: 'http://127.0.0.1:3001/',
+  component: {
+    devServer: {
+      framework: "react",
+      bundler: "vite",
+    },
+    specPattern: "cypress/component/**/*.cy.{js,jsx,ts,tsx}",
   },
-})
 
-17. Start component testing in Chrome browser:
+  e2e: {
+    baseUrl: "http://127.0.0.1:3001/",
+    specPattern: "cypress/e2e/**/*.cy.{js,jsx,ts,tsx}",
+    setupNodeEvents(on, config) {
+      // implement node event listeners here
+    },
+  },
+});
+```
 
-18. Start end-to-end testing in Chrome browser:
+17. Start component testing in Chrome browser.
 
-19. To build the application run the following command in 'root':
+18. Start end-to-end testing in Chrome browser.
+
+19. Add scripts to `root` package.json to run cypress component and e2e tests sequentially:
+
+```json
+{
+  "scripts": {
+    "test:component": "cypress run --component --spec 'cypress/component/Quiz.cy.jsx'",
+    "test:e2e": "cypress run --e2e --spec 'cypress/e2e/quiz.cy.js'",
+    "test": "npm run test:component && npm run test:e2e"
+  }
+}
+```
+
+20. Invoke cypress tests in command line:
 
 ```zsh
-npm run render-build
+npm run test
 ```
 
 ## Usage
@@ -164,23 +205,23 @@ Screenshots of app demonstrating functionality:
 
 ### screenshot-1
 
-![start-quiz](../client/src/assets/screenshot-1.png)
+![start-quiz](./client/src/assets/screenshot-1.png)
 
 ### screenshot-2
 
-![quiz-question](../client/src/assets/screenshot-2.png)
+![quiz-question](./client/src/assets/screenshot-2.png)
 
 ### screenshot-3
 
-![quiz-completed](../client/src/assets/screenshot-3.png)
+![quiz-completed](./client/src/assets/screenshot-3.png)
 
 ### screenshot-4
 
-![cypress-component-tests](../client/src/assets/screenshot-4.png)
+![cypress-component-tests](./client/src/assets/screenshot-4.png)
 
 ### screenshot-5
 
-![cypress-e2e-tests](../client/src/assets/screenshot-5.png)
+![cypress-e2e-tests](./client/src/assets/screenshot-5.png)
 
 
 ## License
@@ -191,16 +232,6 @@ Screenshots of app demonstrating functionality:
 
 Create a new branch for the commit and start a pull request.
 
-## Testing
-
-To ensure the app works correctly, the following E2E test is implemented:
-
-Install cypress:
-
-```zsh
-npm install cypress --save-dev
-npx cypress open
-```
 
 ## Authors and Acknowledgements
 
